@@ -116,6 +116,66 @@ The command writes source matrices, exact and interpolated tensors, quadrature
 points and weights, checksums, metrics, and both plots. It refuses to overwrite
 an existing run. See the [fixed protocol and formulas](docs/CONVERGENCE.md).
 
+## Variational recovery and full mesh-to-mesh transfer
+
+The recovery study starts with integration-point samples and solves a global
+consistent L² projection to source nodes. The full-transfer study then locates
+vertices of a nonmatching target mesh in the source mesh, maps the recovered
+field to those vertices, and evaluates the resulting target FE field. Exact
+analytic target nodal data are never used in the transfer.
+
+Both methods use the same source data, measures, basis, and target locations.
+The four source and target meshes each contain 6 to 3072 tetrahedra. Target
+connectivity is reflected and interior vertices are displaced, so these are
+nonmatching meshes of comparable resolution refined together.
+
+![Variational recovery convergence for SO(3) and compressible and isochoric GL+(3)](docs/figures/recovery-convergence.png)
+
+![Full mesh-to-mesh transfer convergence for SO(3) and compressible and isochoric GL+(3)](docs/figures/transfer-convergence.png)
+
+Finest-mesh errors, with source h = √3/8 and target h ≈ 0.2223:
+
+| Stage | Field | Lie relative L² | Componentwise relative L² | Last order, Lie / componentwise |
+| --- | --- | ---: | ---: | ---: |
+| Recovery | SO(3) | 2.111174e-03 | 2.340896e-03 | 2.018 / 2.035 |
+| Recovery | GL⁺(3), compressible | 2.191283e-03 | 2.419043e-03 | 2.020 / 2.040 |
+| Recovery | GL⁺(3), isochoric | 2.191554e-03 | 2.415558e-03 | 2.019 / 2.034 |
+| Full transfer | SO(3) | 3.471185e-03 | 3.874878e-03 | 2.001 / 1.994 |
+| Full transfer | GL⁺(3), compressible | 3.465038e-03 | 4.029733e-03 | 2.004 / 2.000 |
+| Full transfer | GL⁺(3), isochoric | 3.547197e-03 | 4.017151e-03 | 2.004 / 1.996 |
+
+Both methods approach second-order convergence. For these fields, Lie recovery
+has about 9–10% lower matrix L² error and full Lie transfer about 10–14% lower
+error than componentwise mapping. These are field-specific results. Recovery's
+sampled maximum error is slightly higher for the Lie method in the compressible
+case, so smaller integrated error does not imply uniformly better pointwise
+accuracy.
+
+Full transfer includes the extra target nodal representation. The report retains
+both the recovered source field evaluated directly at target points and the
+final target FE field, allowing the added transfer error to be inspected. These
+are field-transfer studies; they do not establish mechanical equilibrium or
+constitutive admissibility beyond the stated group constraints.
+
+All 132 protocol checks pass. The maximum meaningful relative error changes
+under separate source and evaluation quadrature refinement are 4.26×10⁻⁸ and
+2.02×10⁻⁹, below the preselected 10⁻³ tolerance. Source projection residuals are
+below 3.21×10⁻¹⁶. Lie rotations and isochoric determinants remain at roundoff;
+componentwise determinants remain positive at all sampled points in these runs.
+
+```sh
+python -m pip install -e '.[test,study]'
+python -m studies.recovery_transfer --output outputs/recovery-transfer-new-run
+```
+
+See the [protocol and pipeline definition](docs/RECOVERY_TRANSFER.md),
+[complete metrics](docs/recovery-transfer-metrics.csv), and
+[result receipt](docs/RECOVERY_TRANSFER_RESULTS.md). Vector figures:
+[recovery](docs/figures/recovery-convergence.svg) and
+[full transfer](docs/figures/transfer-convergence.svg).
+All source samples, recovered coefficients, target maps, and intermediate and
+final tensors are preserved in a new raw run directory outside Git.
+
 ## Mathematical contract
 
 Matrices act on column vectors. Rotation angles are in radians. Deformation
@@ -163,9 +223,10 @@ number. See [docs/METHOD.md](docs/METHOD.md) for coordinate conventions and guar
   field, internal-force conservation, equilibrium, or a constitutive yield
   condition. A mechanics solver must enforce its own additional constraints.
 - Recover separate material phases or discontinuous fields separately. The
-  supplied dense design is intended for small examples and local patches.
-  Sparse assembly, mesh search, automatic remeshing, and time integration are
-  outside this version.
+  installed API uses dense designs for small examples and local patches. The
+  recovery/transfer studies use a verified sparse assembly and a locator limited
+  to their generated grids. General unstructured mesh search, adaptive remeshing,
+  and time integration are outside this version.
 
 The tests use analytic rotations, independent matrix exponentials and polar
 factors, exact tetrahedron moments, manufactured fields, and a separately

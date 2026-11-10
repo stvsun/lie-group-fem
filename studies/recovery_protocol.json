@@ -1,0 +1,22 @@
+{
+  "protocol_version": 1,
+  "field_version": "smooth-noncommuting-v1",
+  "levels": [1, 2, 4, 8],
+  "cases": ["so3", "gl3_compressible", "gl3_isochoric"],
+  "stages": ["recovery", "transfer"],
+  "domain": "unit cube, normalized length, dimensionless tensors, radians",
+  "source_mesh": "uniform positively oriented Freudenthal tetrahedra",
+  "target_mesh": "same n; x-reflected connectivity, interior displacement 0.15/n*sin(pi*x)*sin(pi*y)*sin(pi*z)*[1,-0.6,0.4]",
+  "reference_rotation": "identity at every stage and mesh level",
+  "source_quadrature_order": 4,
+  "verification_source_order": 5,
+  "evaluation_quadrature_order": 5,
+  "verification_evaluation_order": 6,
+  "quadrature_relative_tolerance": 0.001,
+  "roundoff_threshold": 1e-12,
+  "normal_equation_relative_tolerance": 1e-11,
+  "group_defect_tolerance": 1e-11,
+  "last_pair_order_interval": [1.8, 2.2],
+  "raw_batch_elements": 256,
+  "seed": null
+}

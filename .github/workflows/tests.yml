@@ -20,3 +20,4 @@ jobs:
       - run: python -m pip install '.[test,study]'
       - run: python -m pytest
       - run: python -m studies.interpolation --output outputs/ci-convergence
+      - run: python -m studies.recovery_transfer --output outputs/ci-recovery-transfer
