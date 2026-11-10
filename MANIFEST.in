@@ -1,0 +1,4 @@
+include Readme.md LICENSE references.bib AGENTS.md
+recursive-include docs *.md
+recursive-include examples *.py
+recursive-include tests *.py
