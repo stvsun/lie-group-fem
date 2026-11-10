@@ -8,6 +8,16 @@ This is an independent implementation inspired by the references below. It has
 no dependency on PhysicsWorlds, PBX_PM, a constitutive model, or a particular FEM
 solver. The runtime dependencies are NumPy and SciPy; calculations use float64.
 
+## Conceptual transfer workflow
+
+![Integration-point fields recovered to nodes and interpolated onto a refined mesh](docs/figures/na-2019-transfer-concept.jpg)
+
+*Conceptual two-stage transfer: recover integration-point data to a nodal field,
+then interpolate that field onto a new mesh. Figure 1 from
+[Na, Bryant & Sun (2019)](https://doi.org/10.1016/j.cma.2019.112572), modified in
+that paper from [Mota et al. (2013)](https://doi.org/10.1007/s00466-013-0876-1).
+Supplied by WaiChing Sun; see [third-party attribution](THIRD_PARTY.md).*
+
 ## Install and run
 
 Python 3.11 or later:
@@ -28,8 +38,8 @@ python examples/variational_recovery.py
 The repository is private; cloning requires access. Examples create a new folder
 under `outputs/`, with raw source/target fields in `fields.npz` and diagnostics
 and dependency versions in `report.json`. Use `--output PATH` to select a new
-directory. Existing directories are never overwritten. Outputs and environments
-are excluded from Git.
+directory. Existing directories are never overwritten. Raw run folders and environments
+are excluded from Git; selected documentation figures and summary metrics are tracked.
 
 ## Minimal API
 
@@ -56,6 +66,55 @@ rows sum to one. Both charts use the same `interpolate` and `recover` functions.
 | `so3_tetrahedron.py` | Nodal orientations → tetrahedron integration points | Analytic rotation field; orthogonality; componentwise interpolation comparison |
 | `gl3_remap.py` | Coarse nodal tensor field → integration points of four refined tetrahedra | Analytic tensor field, positive determinant, isochoric preservation |
 | `variational_recovery.py` | Integration points → five shared nodes on two tetrahedra | Exact affine chart field; nonzero residual for unresolved variation; stationarity |
+
+## Interpolation convergence
+
+The comparison uses identical exact nodal values and evaluation points on four
+refined P1 tetrahedral meshes of the unit cube (6 to 3072 elements). It isolates
+**nodal interpolation**, the diagram's second stage. The reference fields are
+nonlinear and independently evaluated; this is not a convergence study of the
+full recovery/remeshing/mechanics workflow.
+
+![SO(3) interpolation error and orthogonality under mesh refinement](docs/figures/so3-convergence.png)
+
+![GL+(3) interpolation and determinant errors for compressible and isochoric fields](docs/figures/gl3-convergence.png)
+
+Finest-mesh results (729 nodes; h = √3/8):
+
+| Field | Lie-group relative L² | Componentwise relative L² | Last order, Lie / componentwise |
+| --- | ---: | ---: | ---: |
+| SO(3) | 4.501856e-03 | 5.077178e-03 | 1.988 / 1.977 |
+| GL⁺(3), compressible | 4.673236e-03 | 5.299977e-03 | 1.987 / 1.976 |
+| GL⁺(3), isochoric | 4.682337e-03 | 5.245437e-03 | 1.988 / 1.977 |
+
+Both methods show approximately second-order convergence. For these fields,
+Lie-group interpolation reduces the finest-mesh matrix L² error by about
+11–12%; this is not a universal accuracy guarantee or a higher convergence order.
+The finest SO(3) orthogonality RMS is 3.28×10⁻¹⁶ for Lie interpolation versus
+9.61×10⁻³ componentwise. The isochoric determinant L² error is 9.92×10⁻¹⁶
+versus 6.59×10⁻³. All sampled determinants in the smooth studies remain positive
+for both methods. A separate algebraic counterexample in the
+[protocol](docs/CONVERGENCE.md) shows why positivity is not generally guaranteed
+by componentwise averaging.
+
+A higher-order quadrature check changes the finest matrix L² errors by at most
+1.07×10⁻⁶ relative, below the preselected 10⁻³ tolerance. Full sampled-maximum
+errors, determinant diagnostics, and all mesh levels are in the
+[metrics CSV](docs/convergence-metrics.csv) and
+[result receipt](docs/CONVERGENCE_RESULTS.md). Vector plots:
+[SO(3)](docs/figures/so3-convergence.svg),
+[GL⁺(3)](docs/figures/gl3-convergence.svg).
+
+Reproduce the study and preserve a new set of raw fields:
+
+```sh
+python -m pip install -e '.[test,study]'
+python -m studies.interpolation --output outputs/convergence-new-run
+```
+
+The command writes source matrices, exact and interpolated tensors, quadrature
+points and weights, checksums, metrics, and both plots. It refuses to overwrite
+an existing run. See the [fixed protocol and formulas](docs/CONVERGENCE.md).
 
 ## Mathematical contract
 
@@ -126,9 +185,12 @@ they do not establish reproduction of either paper's benchmarks.
 
 BibTeX entries are in [references.bib](references.bib). Please cite the relevant
 research when building on these ideas. The references provide methodological
-context; their text and figures are not distributed with this library.
+context. The user-supplied conceptual figure is credited above and in
+[THIRD_PARTY.md](THIRD_PARTY.md).
 
 ## License
 
 [MIT](LICENSE), copyright 2026 WaiChing Sun. This license covers this repository's
-original code and documentation; dependencies retain their respective licenses.
+original code, documentation, and convergence plots. The supplied conceptual
+figure is excluded; see [THIRD_PARTY.md](THIRD_PARTY.md). Dependencies retain
+their respective licenses.

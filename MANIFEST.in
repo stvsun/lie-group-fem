@@ -2,3 +2,7 @@ include Readme.md LICENSE references.bib AGENTS.md
 recursive-include docs *.md
 recursive-include examples *.py
 recursive-include tests *.py
+recursive-include studies *.py *.json
+recursive-include docs/figures *.png *.svg *.jpg
+include THIRD_PARTY.md
+recursive-include docs *.csv *.json

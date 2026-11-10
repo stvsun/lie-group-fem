@@ -1,0 +1,19 @@
+{
+  "protocol_version": 1,
+  "field_version": "smooth-noncommuting-v1",
+  "domain": "unit cube",
+  "length_unit": "normalized length",
+  "levels": [1, 2, 4, 8],
+  "elements": "six positively oriented Freudenthal P1 tetrahedra per cube",
+  "h": "maximum tetrahedron diameter = sqrt(3)/n",
+  "reference_rotation": "identity, fixed at every level",
+  "cases": ["so3", "gl3_compressible", "gl3_isochoric"],
+  "quadrature_order": 4,
+  "verification_quadrature_order": 5,
+  "quadrature_relative_tolerance": 0.001,
+  "quadrature_check": "relative matrix L2 and determinant L2 errors on the finest mesh",
+  "asymptotic_order_interval": [1.8, 2.2],
+  "order_check": "last mesh pair, relative matrix L2 error only",
+  "raw_batch_elements": 256,
+  "seed": null
+}

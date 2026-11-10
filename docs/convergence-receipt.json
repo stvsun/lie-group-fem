@@ -1,0 +1,301 @@
+{
+  "protocol": {
+    "protocol_version": 1,
+    "field_version": "smooth-noncommuting-v1",
+    "domain": "unit cube",
+    "length_unit": "normalized length",
+    "levels": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "elements": "six positively oriented Freudenthal P1 tetrahedra per cube",
+    "h": "maximum tetrahedron diameter = sqrt(3)/n",
+    "reference_rotation": "identity, fixed at every level",
+    "cases": [
+      "so3",
+      "gl3_compressible",
+      "gl3_isochoric"
+    ],
+    "quadrature_order": 4,
+    "verification_quadrature_order": 5,
+    "quadrature_relative_tolerance": 0.001,
+    "quadrature_check": "relative matrix L2 and determinant L2 errors on the finest mesh",
+    "asymptotic_order_interval": [
+      1.8,
+      2.2
+    ],
+    "order_check": "last mesh pair, relative matrix L2 error only",
+    "raw_batch_elements": 256,
+    "seed": null
+  },
+  "checks": [
+    {
+      "check": "quadrature",
+      "case": "so3",
+      "method": "lie",
+      "metric": "relative_l2",
+      "relative_change": 7.729669111013843e-07,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "so3",
+      "method": "lie",
+      "metric": "relative_determinant_l2",
+      "relative_change": 1.5444145631355512e-07,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "so3",
+      "method": "componentwise",
+      "metric": "relative_l2",
+      "relative_change": 9.779549310074343e-07,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "so3",
+      "method": "componentwise",
+      "metric": "relative_determinant_l2",
+      "relative_change": 3.9724365363903034e-10,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "gl3_compressible",
+      "method": "lie",
+      "metric": "relative_l2",
+      "relative_change": 7.706575746836141e-07,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "gl3_compressible",
+      "method": "lie",
+      "metric": "relative_determinant_l2",
+      "relative_change": 3.517187580533472e-07,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "gl3_compressible",
+      "method": "componentwise",
+      "metric": "relative_l2",
+      "relative_change": 1.0646091643476714e-06,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "gl3_compressible",
+      "method": "componentwise",
+      "metric": "relative_determinant_l2",
+      "relative_change": 2.9937304350560324e-08,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "gl3_isochoric",
+      "method": "lie",
+      "metric": "relative_l2",
+      "relative_change": 6.79943260786112e-07,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "gl3_isochoric",
+      "method": "lie",
+      "metric": "relative_determinant_l2",
+      "relative_change": 2.403716642330427e-06,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "gl3_isochoric",
+      "method": "componentwise",
+      "metric": "relative_l2",
+      "relative_change": 9.83287516209633e-07,
+      "passed": true
+    },
+    {
+      "check": "quadrature",
+      "case": "gl3_isochoric",
+      "method": "componentwise",
+      "metric": "relative_determinant_l2",
+      "relative_change": 2.5893796795636227e-08,
+      "passed": true
+    },
+    {
+      "check": "last_pair_order",
+      "case": "so3",
+      "method": "lie",
+      "observed_order": 1.9880006553327618,
+      "passed": true
+    },
+    {
+      "check": "last_pair_order",
+      "case": "so3",
+      "method": "componentwise",
+      "observed_order": 1.9772243022050062,
+      "passed": true
+    },
+    {
+      "check": "last_pair_order",
+      "case": "gl3_compressible",
+      "method": "lie",
+      "observed_order": 1.9869423718066141,
+      "passed": true
+    },
+    {
+      "check": "last_pair_order",
+      "case": "gl3_compressible",
+      "method": "componentwise",
+      "observed_order": 1.975583466860055,
+      "passed": true
+    },
+    {
+      "check": "last_pair_order",
+      "case": "gl3_isochoric",
+      "method": "lie",
+      "observed_order": 1.9876866045820274,
+      "passed": true
+    },
+    {
+      "check": "last_pair_order",
+      "case": "gl3_isochoric",
+      "method": "componentwise",
+      "observed_order": 1.9769795156031436,
+      "passed": true
+    }
+  ],
+  "environment": {
+    "python": "3.14.3",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "provenance": {
+    "git_head": "bb9f5882f3f8cf84b039ec4f78ef60f6183e6617",
+    "git_dirty": true,
+    "source_sha256": {
+      "studies/interpolation.py": "6f5eed349ba9375eed69f0d4d6f898ef1a0b0a52745e3088bd2def194c4f4f15",
+      "studies/plot_convergence.py": "f4bb9c47e567682c319777b30eb866ba3330a97757d4edae9e3c9546deb13a9b",
+      "studies/protocol.json": "38b4d4703c22480cd209ed40e91cfb19c44ef01df7ebc7383ce8452baca2e31c",
+      "src/lie_fem/groups.py": "40c673bf193958ca21729c91c31dfd18a3b53c8fa16b5c449354b1021f06d22a"
+    }
+  },
+  "admissibility_counterexample": {
+    "source": [
+      [
+        [
+          3.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.1,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          -0.1,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -3.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "reference": [
+      [
+        6.123233995736766e-17,
+        -1.0,
+        0.0
+      ],
+      [
+        1.0,
+        6.123233995736766e-17,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "lie": [
+      [
+        3.3538333843475195e-17,
+        -0.5477225575051662,
+        0.0
+      ],
+      [
+        0.5477225575051662,
+        3.3538333843475195e-17,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "componentwise": [
+      [
+        1.45,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.45,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "source_determinants": [
+      0.3000000000000001,
+      0.3000000000000001
+    ],
+    "lie_determinant": 0.3000000000000001,
+    "componentwise_determinant": -2.1025
+  },
+  "run_directory": "outputs/convergence-20261110-01",
+  "evidence_sha256": {
+    "report.json": "98d36c32f3853a1cf5998d0737b96f3fdb3810252c089baddfbd5ca3b1d570c3",
+    "metrics.csv": "d6577c8a17c63fc899b96758a80f2009a2e0be388939faa7df46b0533cdebad4",
+    "protocol.json": "38b4d4703c22480cd209ed40e91cfb19c44ef01df7ebc7383ce8452baca2e31c",
+    "sha256.json": "0329a56f6e16f40400e3765cd787424b59763b1db288d51190bd2fd898037e04"
+  },
+  "figures_sha256": {
+    "gl3-convergence.png": "144c28c04c09f861a2e42fefa01f0e7927b5269cda3e850af1e3131d751bd07c",
+    "so3-convergence.svg": "d445e014abfd4cd8ea96ca18a8468a3ccd1c57f855c7a6e17b811096ec0ad329",
+    "so3-convergence.png": "dd5a73c65530f702590195ef786600837664c81562fa74977e241e61d4b62d70",
+    "gl3-convergence.svg": "9b71a76c97c950ecf8455d8c5d3ee26fdf9f511651b586a8a474b4c4beb48833"
+  }
+}

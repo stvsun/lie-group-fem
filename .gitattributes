@@ -1,0 +1,4 @@
+# Preserve the exact CSV evidence bytes (the standard csv writer uses CRLF).
+docs/convergence-metrics.csv -text whitespace=cr-at-eol
+# Matplotlib emits whitespace in SVG path data; keep the original export bytes.
+docs/figures/*.svg -text -whitespace
