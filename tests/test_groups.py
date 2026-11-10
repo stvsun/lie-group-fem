@@ -138,3 +138,16 @@ def test_input_arrays_are_not_modified():
     assert_allclose(values, original)
     with pytest.raises(ValueError):
         SO3Chart().encode(np.eye(3, dtype=complex)[None])
+
+
+@pytest.mark.parametrize("chart,dimension", [(SO3Chart(), 3), (GL3Chart(), 9)])
+def test_decode_accepts_readonly_strided_coordinates(chart, dimension):
+    storage = np.zeros((2, 2*dimension))
+    coordinates = storage[:, ::2]
+    coordinates[:, 2] = .2
+    coordinates.setflags(write=False)
+    original = coordinates.copy()
+    assert not coordinates.flags.c_contiguous
+    assert_allclose(chart.decode(coordinates), [rz(.2), rz(.2)], atol=2e-14)
+    assert_allclose(coordinates, original)
+    assert not coordinates.flags.writeable

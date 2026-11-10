@@ -90,6 +90,9 @@ class SO3Chart:
         """Map (n,3) chart vectors to (n,3,3) rotations."""
         vectors = _coordinates(coordinates, 3)
         _inside_chart(vectors)
+        # Older supported SciPy versions require a writable C-contiguous
+        # buffer. Copy at this boundary while retaining immutable field data.
+        vectors = np.array(vectors, dtype=np.float64, order="C", copy=True)
         return self.reference @ Rotation.from_rotvec(vectors).as_matrix()
 
 
