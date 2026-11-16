@@ -82,6 +82,35 @@ These charts use guarded real principal logarithms and do not cover each group
 globally. The direct `MatrixChart("GL+", 3)` is distinct from the existing polar
 `GL3Chart`. See [constraints, branches, units and examples](docs/CLASSICAL_GROUPS.md).
 
+### Tested interpolation and recovery summary
+
+The table distinguishes the tested group/chart combinations from the mesh
+convergence studies. Every row is covered by numerical tests or runnable FEM
+examples; “Not studied” means no dedicated mesh-refinement study is provided.
+All matrix-log charts are local and require branch-consistent data.
+
+| Group / representation tested | Chart | Verified interpolation and recovery behavior | Mesh-convergence coverage |
+| --- | --- | --- | --- |
+| ℝ⁺ — positive scalars | `PositiveRealChart()` | Exact geometric interpolation and signed extrapolation; Table 3 values; affine log-space recovery | Not studied |
+| GL(3) — nonsingular 3×3 matrices | `MatrixChart("GL", 3)` | Analytic shear exponential; reference-based mapping in the negative-determinant component; tetrahedral recovery and target-point interpolation | Not studied |
+| GL⁺(3) — direct matrix logarithm | `MatrixChart("GL+", 3)` | Table 3 interpolation/extrapolation; positive determinant; affine chart recovery | Not studied |
+| GL⁺(3) — polar rotation/stretch mapping | `GL3Chart(reference=R0)` | Compressible and isochoric tensor mapping; positive determinant and unit-determinant preservation; variational recovery and mesh transfer | Interpolation, recovery and full mesh-to-mesh transfer |
+| SL(3) — unit-determinant 3×3 matrices | `MatrixChart("SL", 3)` | Traceless generators; analytic shear/diagonal exponentials; Table 3 interpolation/extrapolation; affine recovery | Not studied |
+| O(3) — orthogonal 3×3 matrices | `MatrixChart("O", 3, reference=Q0)` | Orthogonality; positive/negative determinant components with suitable references; affine recovery and target-point interpolation | Not studied |
+| SO(3) — direct matrix logarithm | `MatrixChart("SO", 3)` | Analytic rotation oracle; Table 3 interpolation/extrapolation; orthogonality and unit determinant; affine recovery | Not studied |
+| SO(3) — rotation-vector chart | `SO3Chart(reference=R0)` | Analytic rotation fields; branch guards; orthogonality; variational recovery and mesh transfer | Interpolation, recovery and full mesh-to-mesh transfer |
+| Sp(2) — real 4×4 symplectic matrices | `MatrixChart("Sp", 2)` | Analytic symplectic shear; AᵀJA=J; affine recovery and target-point interpolation | Not studied |
+| SE(3) — 4×4 homogeneous rigid motions | `MatrixChart("SE", 3)` | Proper rotation and homogeneous-row constraints; affine recovery and target-point interpolation; rotation/translation coupling independently checked in SE(2) | Not studied |
+
+Evidence: [classical-group tests](tests/test_classical.py),
+[SO(3)/polar GL⁺(3) tests](tests/test_groups.py),
+[all-group tetrahedral example](examples/classical_groups.py), and
+[paper-example comparisons](docs/PAPER_RESULTS.md). Additional tests check SO(4)
+group constraints; they do not constitute an SO(4) interpolation study.
+The separate analytic ring study uses the continuous rotation-angle lift in
+Eq. 6.7 and compares direct, mixed and both-Lie polar interpolation; its
+[published-number discrepancies](docs/PAPER_RESULTS.md) remain documented.
+
 ## Analytic examples from Mota et al. (2013)
 
 The paper runner implements **Tables 2–3, the discontinuous scalar projection,
