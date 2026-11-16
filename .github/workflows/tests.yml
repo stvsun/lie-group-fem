@@ -21,3 +21,5 @@ jobs:
       - run: python -m pytest
       - run: python -m studies.interpolation --output outputs/ci-convergence
       - run: python -m studies.recovery_transfer --output outputs/ci-recovery-transfer
+      - run: python examples/classical_groups.py --output outputs/ci-classical-groups
+      - run: python -m studies.paper_examples --output outputs/ci-paper-examples

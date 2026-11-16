@@ -75,3 +75,15 @@ history-variable mapping during poromechanics remeshing. Its
 Bibliographic details were checked against publisher and author sources on
 2026-11-10. This repository defines and tests its own restricted algorithm above;
 it makes no claim of a complete paper reproduction or mechanical equilibrium.
+
+## Additional classical-group charts and paper replay
+
+The original SO3/GL3 implementations and frozen study sources are unchanged.
+`MatrixChart` and `PositiveRealChart` add all Table 1 groups under the explicit
+local contract in [CLASSICAL_GROUPS.md](CLASSICAL_GROUPS.md). The direct GL matrix
+logarithm is distinct from the polar GL3 chart described above.
+
+The new analytic Q1 hexahedral replay implements the paper's specified formulas,
+with declared mesh and scale assumptions. See [PAPER_REPLICATION.md](PAPER_REPLICATION.md)
+and [PAPER_RESULTS.md](PAPER_RESULTS.md) for independently verified results and
+remaining published-number discrepancies. The billet problem is excluded.

@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "source": "Mota et al. (2013), DOI 10.1007/s00466-013-0876-1; user-supplied LieGroupLieAlg.pdf",
+  "scope": "Tables 2-3, Sections 6.1, 6.2, 6.2.1 and 6.2.2. Section 6.3 excluded by user; no Albany.",
+  "scalar": {
+    "counts": [
+      2,
+      2,
+      2
+    ],
+    "lower": [
+      -1,
+      -1,
+      -1
+    ],
+    "upper": [
+      1,
+      1,
+      1
+    ],
+    "quadrature_order": 2
+  },
+  "ring": {
+    "L": 1.0,
+    "lower": [
+      -0.5,
+      -0.03125,
+      -0.03125
+    ],
+    "upper": [
+      0.5,
+      0.03125,
+      0.03125
+    ],
+    "coarse_counts": [
+      8,
+      2,
+      1
+    ],
+    "fine_counts": [
+      100,
+      25,
+      1
+    ],
+    "refinement_factors": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "quadrature_order": 2,
+    "audit_quadrature_order": 5,
+    "assumptions": [
+      "L=1 fixes the unspecified length scale; absolute volume L2 errors scale as L^(3/2).",
+      "The rectangular reference beam is centered at the origin.",
+      "Directional counts for the 16- and 2500-element meshes are not supplied. The aspect ratio 4 and one Z element from Section 6.2.1 are extended to these meshes.",
+      "Convergence meshes are (4*k,k,1), with k doubled. The paper does not specify a complete refinement list.",
+      "Rotation uses the continuous analytic angle X/R in Eq. 6.7, including endpoints at +/-pi; no principal-log re-encoding occurs.",
+      "No-polar matrix-log interpolation uses SciPy's complex principal log; its imaginary part is preserved. The paper does not give its logarithm implementation/branch choices.",
+      "Recovery methods follow the descriptions literally, with an unweighted average across incident elements for methods 1 and 2."
+    ],
+    "published_interpolation_max": {
+      "direct": 0.1185,
+      "mixed": 1.21e-15,
+      "lie": 0.0177,
+      "matrix_log": 2.2
+    },
+    "published_recovery": {
+      "nearest": [
+        0.0634,
+        0.141,
+        0.0087
+      ],
+      "extrapolation": [
+        0.0662,
+        0.696,
+        0.0508
+      ],
+      "direct": [
+        0.0168,
+        0.0199,
+        0.000201
+      ],
+      "direct_F": [
+        0.0168,
+        0.0199,
+        0.000201
+      ],
+      "mixed": [
+        5.38e-16,
+        2.45e-13,
+        3.3e-16
+      ],
+      "lie": [
+        0.0078,
+        0.0087,
+        3.35e-16
+      ]
+    }
+  },
+  "verification": {
+    "analytic_tolerance": 2e-11,
+    "printed_table_tolerance": 0.00501,
+    "roundoff_comparison_tolerance": 1e-11
+  },
+  "exact_reproduction_policy": "Numerical algorithm checks and agreement with published values are separate. Report every mismatch; do not calibrate unspecified meshes or scales to the printed results.",
+  "source_pdf_sha256": "a00ff4986cd533f96cc7932628aaf773d815bfd90fa6041fdcc9d61ae5cb41ad"
+}

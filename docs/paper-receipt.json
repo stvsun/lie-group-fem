@@ -1,0 +1,61 @@
+{
+  "raw_run": "outputs/paper-2013-20261116-07",
+  "source_pdf_sha256": "a00ff4986cd533f96cc7932628aaf773d815bfd90fa6041fdcc9d61ae5cb41ad",
+  "source_hashes": {
+    "src/lie_fem/classical.py": "eef313d6c635e8ac27615955c6c95d221ef2349b7d0fc24f2e460b0fecf1a573",
+    "src/lie_fem/groups.py": "40c673bf193958ca21729c91c31dfd18a3b53c8fa16b5c449354b1021f06d22a",
+    "studies/paper_hex.py": "23ece9177b2be0ff181026882594f0a228deebfb0cf05d099802589168b977ec",
+    "studies/paper_examples.py": "2d5fb9f8d35b44ee0714cb02d0e8575faaf20277d8d427bc749e07ef89bf72ef",
+    "studies/paper_plots.py": "37cc8578bbc9862f982dfbab2264452d0885e238210a0c5b2e037effda9803c7",
+    "studies/paper_protocol.json": "6de1af0427f61fae589b0ed3673cd075744ff25e7b8e4218950ada6f8eada7eb"
+  },
+  "raw_manifest": {
+    "paper-ring-convergence.png": "7154ed112f094cee7c13bac725ce0fc48d85feebd202c2b3ef182310bac64ab7",
+    "paper-ring-convergence.svg": "5c8fe8c0f29e55cac3c1c29da31b1fc9f83e746618348e18c75d0346bc3559e2",
+    "paper-ring-deformed.png": "2b178422d7d4a24e5b42b7ec13d748fc919d12a638f02b412c89c246924b517f",
+    "paper-ring-deformed.svg": "f2293f650497aeb8a0198a923358486a83ecd0f5f079f13446d6be9eb6e1c09d",
+    "paper-ring-interpolation.png": "96c69a0385d0efc4eb6d70acdf3092671b4c25fadff85d57a3b67e7f10c7f98b",
+    "paper-ring-interpolation.svg": "7f5dd8c616366a112535835ce9da5cbfed99a99897470c7592ccc52e65d6262b",
+    "paper-ring-recovery.png": "507844000418b158831843c2fb9366fedb4fde7feeacd0a7bd9ff397df3c2ab1",
+    "paper-ring-recovery.svg": "6ba4c64e476dd2ca7215c70a0b0b707fcb932a864e3992e167cbc2d44085b77d",
+    "paper-scalar.png": "1fccaf3d99f2315417696256bb399a453131a3ddcc7178912faf4683dc105376",
+    "paper-scalar.svg": "e01efb8b0498c779a4bbfa779ffc14c7099742ee95bd2422ce514464f19ec26b",
+    "protocol.json": "6de1af0427f61fae589b0ed3673cd075744ff25e7b8e4218950ada6f8eada7eb",
+    "report.json": "fe209c45c4c6aa612d0d5a0f88ff7258b0557fed0e9c7d98ddb5313fdba9c1a6",
+    "ring-convergence-1.npz": "eac00cfd0437e38ab9915a77c06e14e043d2c086ff8e1238a65bfd8beb217b19",
+    "ring-convergence-16.npz": "18d498ab17ec70891e73ea6d562aadeea6cc22e113fefa62dcfec09025c0f236",
+    "ring-convergence-2.npz": "e7f232d4f5f0e45019a49210495bef88273a01bb55d911e4761b852235d9fbd4",
+    "ring-convergence-4.npz": "22fe5f1fe9fd915ceb2c815959aa90186c3616a6d6a32879b026189c9b2add59",
+    "ring-convergence-8.npz": "45059fa753ad2a611b642d684cf83eb3be5eb16feab35c83cbd799f502d357d5",
+    "ring-convergence.csv": "5a31ef2d24f7bb72a836f730a4675690802c1c7a2f02d70ee45fd146c30ea435",
+    "ring-interpolation.npz": "0117f677cf2fbb7d5bc267a7ac529cc4d36f6f599a1523e3afa675b6be0c9cd4",
+    "ring-recovery.npz": "91da2f71a1a9f5d6aa2220dc2c46844fe3707b9733093a7c4a718f3b4f945639",
+    "scalar.npz": "79049851370e02b2a64dbffc17e7814480ee3b3612a69509f07f2e019e2c1c03",
+    "tables-2-3.npz": "a55dcdfc0ecb117840c5fbd7bb80c84c753f53c0d9e27adfe927ced06952efc4"
+  },
+  "published_hashes": {
+    "docs/figures/paper-ring-convergence.png": "7154ed112f094cee7c13bac725ce0fc48d85feebd202c2b3ef182310bac64ab7",
+    "docs/figures/paper-ring-deformed.png": "2b178422d7d4a24e5b42b7ec13d748fc919d12a638f02b412c89c246924b517f",
+    "docs/figures/paper-ring-interpolation.png": "96c69a0385d0efc4eb6d70acdf3092671b4c25fadff85d57a3b67e7f10c7f98b",
+    "docs/figures/paper-ring-recovery.png": "507844000418b158831843c2fb9366fedb4fde7feeacd0a7bd9ff397df3c2ab1",
+    "docs/figures/paper-scalar.png": "1fccaf3d99f2315417696256bb399a453131a3ddcc7178912faf4683dc105376",
+    "docs/figures/paper-ring-convergence.svg": "5c8fe8c0f29e55cac3c1c29da31b1fc9f83e746618348e18c75d0346bc3559e2",
+    "docs/figures/paper-ring-deformed.svg": "f2293f650497aeb8a0198a923358486a83ecd0f5f079f13446d6be9eb6e1c09d",
+    "docs/figures/paper-ring-interpolation.svg": "7f5dd8c616366a112535835ce9da5cbfed99a99897470c7592ccc52e65d6262b",
+    "docs/figures/paper-ring-recovery.svg": "6ba4c64e476dd2ca7215c70a0b0b707fcb932a864e3992e167cbc2d44085b77d",
+    "docs/figures/paper-scalar.svg": "e01efb8b0498c779a4bbfa779ffc14c7099742ee95bd2422ce514464f19ec26b",
+    "docs/paper-results.json": "fe209c45c4c6aa612d0d5a0f88ff7258b0557fed0e9c7d98ddb5313fdba9c1a6",
+    "docs/paper-ring-convergence.csv": "5a31ef2d24f7bb72a836f730a4675690802c1c7a2f02d70ee45fd146c30ea435"
+  },
+  "all_analytic_checks_pass": true,
+  "exact_published_replication": false,
+  "earlier_runs": {
+    "outputs/paper-2013-20261116-01": "Incomplete: numpy boolean serialization failure; raw arrays preserved.",
+    "outputs/paper-2013-20261116-02": "Incomplete: remaining numpy boolean serialization failure; raw arrays preserved.",
+    "outputs/paper-2013-20261116-03": "Completed; superseded by branch-guard/provenance refinements.",
+    "outputs/paper-2013-20261116-04": "Completed; superseded by expanded plotting/provenance.",
+    "outputs/paper-2013-20261116-05": "Completed; superseded by convergence tick-label fix."
+  },
+  "plot_optimization": "Run 06 is preserved; run 07 uses rasterized dense heatmaps inside SVG to keep the repository small.",
+  "classical_groups_run": "outputs/classical-groups-20261116-02"
+}

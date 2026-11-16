@@ -1,7 +1,8 @@
 # Lie-group FEM
 
 A small Python library for **Lie-group interpolation and variational reconstruction
-of tensor fields in finite elements**. It provides local SO(3) rotation mapping,
+of tensor fields in finite elements**. It provides all eight Lie-group families
+listed in Mota et al. (2013),
 polar GL⁺(3) mapping, and quadrature-to-node recovery in a declared common chart.
 
 This is an independent implementation inspired by the references below. It has
@@ -27,12 +28,13 @@ git clone https://github.com/stvsun/lie-group-fem.git
 cd lie-group-fem
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[test]'
+python -m pip install -e '.[test,study]'
 python -m pytest
 
 python examples/so3_tetrahedron.py
 python examples/gl3_remap.py
 python examples/variational_recovery.py
+python examples/classical_groups.py --output outputs/groups-new-run
 ```
 
 The repository is private; cloning requires access. Examples create a new folder
@@ -66,6 +68,72 @@ rows sum to one. Both charts use the same `interpolate` and `recover` functions.
 | `so3_tetrahedron.py` | Nodal orientations → tetrahedron integration points | Analytic rotation field; orthogonality; componentwise interpolation comparison |
 | `gl3_remap.py` | Coarse nodal tensor field → integration points of four refined tetrahedra | Analytic tensor field, positive determinant, isochoric preservation |
 | `variational_recovery.py` | Integration points → five shared nodes on two tetrahedra | Exact affine chart field; nonzero residual for unresolved variation; stationarity |
+
+## All groups from the 2013 paper
+
+The API now includes **ℝ⁺, GL(n), GL⁺(n), SL(n), O(n), SO(n), Sp(n), and SE(n)**.
+Use `PositiveRealChart()` for positive scalars and `MatrixChart("SL", 3)` (or
+another family) for local matrix-log coordinates. The same `interpolate` and
+`recover` functions apply to every chart. `Sp(n)` uses **2n×2n real matrices**;
+`SE(n)` uses (n+1)×(n+1) homogeneous transforms. GL and O support the negative
+determinant component with an explicit reference in that component.
+
+These charts use guarded real principal logarithms and do not cover each group
+globally. The direct `MatrixChart("GL+", 3)` is distinct from the existing polar
+`GL3Chart`. See [constraints, branches, units and examples](docs/CLASSICAL_GROUPS.md).
+
+## Analytic examples from Mota et al. (2013)
+
+The paper runner implements **Tables 2–3, the discontinuous scalar projection,
+ring interpolation, ring convergence, and all six ring recovery methods**.
+The billet problem is excluded as requested; Albany is not used.
+
+**Reproduction status:** Table 3 agrees to printed precision, the scalar solution
+is recovered, and the ring's direct-interpolation maximum and mixed-method
+roundoff accuracy agree. Several other ring values differ from the paper.
+Original directional mesh counts, the numerical length scale and matrix-log
+branch details are not supplied. The runner uses explicit assumptions and
+retains every discrepancy; this is not a claim of exact reproduction of every
+published number. Table 2 also has an apparent arithmetic typo, documented in
+the [comparison receipt](docs/PAPER_RESULTS.md).
+
+![Exact and recovered discontinuous scalar field](docs/figures/paper-scalar.png)
+
+![Four ring interpolation methods on the exact deformed ring](docs/figures/paper-ring-deformed.png)
+
+| Ring method | Computed maximum error | Printed maximum |
+| --- | ---: | ---: |
+| Direct R, direct S | 0.1184999 | 0.1185 |
+| Lie R, direct S | 1.12×10⁻¹⁵ | 1.21×10⁻¹⁵ |
+| Lie R, Lie S | 0.0053433 | 0.0177 |
+| Direct complex matrix log F | 2.3350 | 2.2 |
+
+The replay uses 16 and 2500 Q1 hexahedra, with declared layouts 8×2×1 and
+100×25×1. The no-polar diagnostic preserves its complex values; it does not
+silently discard imaginary parts or treat them as valid real deformation maps.
+
+![Ring interpolation convergence in F, R and S](docs/figures/paper-ring-convergence.png)
+
+![Six ring recovery methods compared with printed Table 7 and independent quadrature](docs/figures/paper-ring-recovery.png)
+
+The mixed scheme reproduces the analytic ring field to roundoff. Direct and
+both-Lie interpolation approach second order in axial element size. Recovery
+errors are evaluated both at the fitting Gauss points and at independent
+quadrature points, so exactness at fitting samples cannot conceal error elsewhere.
+All **14 analytic verification checks** pass; the failed printed comparisons
+remain separate. The new all-group FEM example also preserves raw source,
+recovered and transferred arrays.
+
+```sh
+python -m studies.paper_examples --output outputs/paper-new-run
+```
+
+See the [fixed setup and reproduction limits](docs/PAPER_REPLICATION.md),
+[complete results](docs/PAPER_RESULTS.md), [metrics](docs/paper-ring-convergence.csv),
+and [checksummed evidence receipt](docs/paper-receipt.json). PNG and SVG plots
+and all raw tensors are saved to a new run directory. A
+[reference-coordinate error plot](docs/figures/paper-ring-interpolation.svg)
+is also available. Earlier manufactured-field studies below remain unchanged.
 
 ## Interpolation convergence
 
@@ -231,7 +299,8 @@ number. See [docs/METHOD.md](docs/METHOD.md) for coordinate conventions and guar
 The tests use analytic rotations, independent matrix exponentials and polar
 factors, exact tetrahedron moments, manufactured fields, and a separately
 assembled consistent mass equation. They test the declared numerical contract;
-they do not establish reproduction of either paper's benchmarks.
+the paper-specific checks and unresolved reproduction differences are documented
+separately above. The 2019 coupled mechanics solver is outside this library.
 
 ## References
 
